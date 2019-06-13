@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>幸运大摇号</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+        text-Align: center;
+      }
+      #parents {
+        border: 2px solid;
+        margin: 0 auto;
+      }
+      #top {
+        background: #666; 
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      h1, h3 {
+        color: rgb(228, 207, 19)
+      }
+      h2 {
+        color: rgb(234, 236, 119)
+      }
+      #main {
+        overflow: hidden;
+        zoom: 1;
+      }
+      #left {
+        background: #E79F6D;
+        float: left;
+        width: 60%;
+        height: 600px;
+        position: relative;
+        padding-top: 30px;
+        margin-right: 20px;
+      }
+      #right {
+        height: 600px;
+        font-size: 26px;
+        color: red;
+        background: rgb(170, 170, 169);
+        overflow: hidden;
+        zoom: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      #foot {
+        background: #666;
+        clear: both;
+        height: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      #select {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      #select #title {
+        font-size: 34px;
+        color: #4FFFFF;
+      }
+      #select #number {
+        font-size: 32px;
+        color: blue;
+        padding: 20px;
+        width: 82%;
+        margin-top: 30px;
+      }
+      #select #number #numberup{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      #select #number #numberdown{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      #button {
+        font-size: 32px;
+        color: #E79F6D;
+        width: 120px;
+        height: 60px;
+        margin-top: 250px;
+      }
+    </style>            
+  </head>
+  <body>
+    <div id="parents">
+      <div id="top">
+        <h1>constantE主题活动</h1>
+        <h3>constantE摇号发奖品</h3>
+      </div>
+      <div id="main">
+        <div id="left">
+          <div id="select">
+            <div id="title">
+              <h2>第<span id="titlecount">0</span>轮</h2>
+            </div>
+            <div id="number">
+              <div id="numberup">
+                <div id="number1">&nbsp;</div> <div id="number2"></div> <div id="number3"></div> <div id="number4"></div> <div id="number5"></div>
+              </div>
+              <div id="numberdown">
+                <div id="number6">&nbsp;</div> <div id="number7"></div> <div id="number8"></div> <div id="number9"></div> <div id="number10"></div>
+              </div>
+            </div>
+            <button id="button" onclick="select();">开始</button>
+          </div>
+        </div>
+        <div id="right">
+          <div id="text1"></div><div id="text2"></div><div id="text3"></div><div id="text4"></div><div id="text5"></div>
+          <div id="text6"></div><div id="text7"></div><div id="text8"></div><div id="text9"></div><div id="text10"></div>
+          <div id="text11"></div><div id="text12"></div><div id="text13"></div><div id="text14"></div><div id="text15"></div>
+        </div>
+      </div>
+      <div id="foot">
+        <h3>正在抽取【第<span id="ingcount">0</span>组】，本轮抽奖10名（第<span id="turncount">0</span>轮/共15轮，已抽取<span id="selectcount">0</span>名/共150名）</h3>
+      </div>
+    </div>
+    <script>
+      //生成1——150号码
+      function myCreateArray(n){
+        var arr = [];
+        for(var i = 0; i < n; i++){
+          arr[i] = i + 1;
+        }
+        return arr;
+      }
+      var cards = myCreateArray(150);
+      //打乱数组顺序
+      function myShuffle(arr) {
+        var len = arr.length;
+        for (var i = 0; i < len - 1; i++) {
+          var index = parseInt(Math.random() * (len - i));
+          var temp = arr[index];
+          arr[index] = arr[len - i - 1];
+          arr[len - i - 1] = temp;
+        }
+      }
+      myShuffle(cards);
+      var selectCards;
+      var count = 0;
+      var ss = 0
+      function select() {
+        if (cards.length <= 0 ) {
+          alert('已经全部抽完！重新开始请刷新页面。')
+          return;
+        }
+        if(ss == 0) {
+          ss = 1;
+          start();
+        } else {
+          stop();
+        }
+      }
+      function start() {
+        count++;
+        titlecount.innerHTML = count;
+        ingcount.innerHTML = count;
+        turncount.innerHTML = count;
+        selectcount.innerHTML = (count - 1) * 10;
+        interV = setInterval(function() {
+					number1.innerHTML = parseInt(Math.random() * 150);
+          number2.innerHTML = parseInt(Math.random() * 150);
+          number3.innerHTML = parseInt(Math.random() * 150);
+          number4.innerHTML = parseInt(Math.random() * 150);
+          number5.innerHTML = parseInt(Math.random() * 150);
+          number6.innerHTML = parseInt(Math.random() * 150);
+          number7.innerHTML = parseInt(Math.random() * 150);
+          number8.innerHTML = parseInt(Math.random() * 150);
+          number9.innerHTML = parseInt(Math.random() * 150);
+          number10.innerHTML = parseInt(Math.random() * 150);
+        }, 30);
+        button.innerHTML = '停止';
+      }
+      function stop() {
+        ss = 0;
+        clearInterval(interV);
+        selectcount.innerHTML = count * 10;
+        button.innerHTML = '开始';
+        //每次抽10名
+        selectCards = cards.slice(0,10);
+        number1.innerHTML = selectCards[0];
+        number2.innerHTML = selectCards[1];
+        number3.innerHTML = selectCards[2];
+        number4.innerHTML = selectCards[3];
+        number5.innerHTML = selectCards[4];
+        number6.innerHTML = selectCards[5];
+        number7.innerHTML = selectCards[6];
+        number8.innerHTML = selectCards[7];
+        number9.innerHTML = selectCards[8];
+        number10.innerHTML = selectCards[9];
+        switch(count) {
+          case 1:
+          text1.innerHTML = '第一轮结果：' + selectCards; break;
+          case 2:
+          text2.innerHTML = '第二轮结果：' + selectCards; break;
+          case 3:
+          text3.innerHTML = '第三轮结果：' + selectCards; break;
+          case 4:
+          text4.innerHTML = '第四轮结果：' + selectCards; break;
+          case 5:
+          text5.innerHTML = '第五轮结果：' + selectCards; break;
+          case 6:
+          text6.innerHTML = '第六轮结果：' + selectCards; break;
+          case 7:
+          text7.innerHTML = '第七轮结果：' + selectCards; break;
+          case 8:
+          text8.innerHTML = '第八轮结果：' + selectCards; break;
+          case 9:
+          text9.innerHTML = '第九轮结果：' + selectCards; break;
+          case 10:
+          text10.innerHTML = '第十轮结果：' + selectCards; break;
+          case 11:
+          text11.innerHTML = '第十一轮结果：' + selectCards; break;
+          case 12:
+          text12.innerHTML = '第十二轮结果：' + selectCards; break;
+          case 13:
+          text13.innerHTML = '第十三轮结果：' + selectCards; break;
+          case 14:
+          text14.innerHTML = '第十四轮结果：' + selectCards; break;
+          case 15:
+          text15.innerHTML = '第十五轮结果：' + selectCards; break;
+          default:
+            break;
+        }
+        cards.splice(0,10)
+      }
+    </script>
+  </body>
+</html>
